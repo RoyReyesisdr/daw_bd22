@@ -1,0 +1,32 @@
+{
+  "name": "laboratorio-6",
+  "version": "1.0.0",
+  "description": "proyecto de la clase DAW Y BD para ISDR",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RoyReyesisdr/daw_bd22.git"
+  },
+  "keywords": [
+    "daw",
+    "bd",
+    "vhdl"
+  ],
+  "author": "Rodrigo Reyes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RoyReyesisdr/daw_bd22/issues"
+  },
+  "homepage": "https://github.com/RoyReyesisdr/daw_bd22#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1"
+  }
+}
