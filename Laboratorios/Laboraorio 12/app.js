@@ -14,6 +14,7 @@ app.use((request,response,next) =>{
     next();
 });
 //Declarar pequeño html
+// Registro de usuario datos
 app.get('/user/new',(request, response, next) =>{
     let html = '<!DOCTYPE html>';
     html += "<h1>Register User</h1>";
@@ -40,7 +41,18 @@ app.post('/user/new',(request, response, next) => {
     usuario.push(request.body.nombre);
     response.redirect('/Perfil');
 });
+// Ruta a C++
+app.get('/lenguaje/cmas',(request,response,next) => {
+    let html = '<!DOCTYPE html>';
+    html += "<h1>Inicio C ++</h1>"
+});
 
+// Ruta a python
+app.get('/lenguaje/python',(request,response,next) => {
+    let html = '<!DOCTYPE html>';
+    html += "<h1>Inicio python</h1>"
+}); 
+// Ruta C
 app.use('/c',(request,response,next) =>{
     response.send('La respuesta de la ruta /c');
 });
