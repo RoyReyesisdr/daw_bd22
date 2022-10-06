@@ -3,54 +3,36 @@ const { request, response } = require('express');
 const express = require('express');
 const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
+const path = require('path');
+
+app.use(express.static(path.join(__dirname,'public'))); //Instalación del comando estatico para incluir el css en en HTML
+app.set('view engine','ejs');
+app.set('views','views');
 //Declaracio de un Middleware
 /*app.use((request, response, next) => {
     console.log('Middleware!');
     next(); //Le permite a la petición avanzar hacia el siguiente middleware
 });*/
-const usuario = [];
+//Llamar modulos
+const misRutas = require('./routes/user.routes');
+app.use('/user', misRutas);
+
 app.use((request,response,next) =>{
     console.log('Un Midelware');
     next();
 });
-//Declarar pequeño html
-// Registro de usuario datos
-app.get('/user/new',(request, response, next) =>{
-    let html = '<!DOCTYPE html>';
-    html += "<h1>Register User</h1>";
-    html += '<form action = "/user/new" method = "POST" >';
-    html += '<label for = "nombre"> Nombre usuario</label>';
-    html += '<input type = "text" id="nombre" name="nombre">';
-    html += "<br><br>";
-    html += '<input type = "submit" id="enviar" name="enviar" value="Registrar">';
-    html += '</form>';
-    response.send(html);
-});
-app.get('/perfil',(request,response,next) => {
-    let html = '<!DOCTYPE html>';
-    html += "<h1>Perfil de Usuario</h1>";
-    html += "<ul>"
-    for (let u of usuario){
-        html += u;
-    }
-    html += "</u>";
-    response.send(html);
-});
-app.post('/user/new',(request, response, next) => {
-    console.log(request.body);
-    usuario.push(request.body.nombre);
-    response.redirect('/Perfil');
-});
 // Ruta a C++
 app.get('/lenguaje/cmas',(request,response,next) => {
     let html = '<!DOCTYPE html>';
-    html += "<h1>Inicio C ++</h1>"
+    html += "<h1>Inicio C ++</h1>";
+    response.send(html);
 });
 
 // Ruta a python
 app.get('/lenguaje/python',(request,response,next) => {
     let html = '<!DOCTYPE html>';
-    html += "<h1>Inicio python</h1>"
+    html += "<h1>Inicio python</h1>";
+    response.send(html);
 }); 
 // Ruta C
 app.use('/c',(request,response,next) =>{
@@ -59,5 +41,9 @@ app.use('/c',(request,response,next) =>{
 app.use('/inicio',(request,response,next) =>{
     response.send("¡Hola Mundo!");
 });
-
+//Si la ruta no esta mandar un 404
+app.use((request,response,next) => {
+    response.status(404);
+    response.sendFile(path.join(__dirname,'views','error.html'));
+});
 app.listen(3000);

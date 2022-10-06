@@ -1,0 +1,33 @@
+const express = require('express');
+const router = express.Router();
+const usuario = [];
+
+//Declarar pequeño html
+// Registro de usuario datos
+router.get('/new',(request, response, next) =>{
+    let html = '<!DOCTYPE html>';
+    html += "<h1>Register User</h1>";
+    html += '<form action = "/user/new" method = "POST" >';
+    html += '<label for = "nombre"> Nombre usuario</label>';
+    html += '<input type = "text" id="nombre" name="nombre">';
+    html += "<br><br>";
+    html += '<input type = "submit" id="enviar" name="enviar" value="Registrar">';
+    html += '</form>';
+    response.send(html);
+});
+router.get('/perfil',(request,response,next) => {
+    let html = '<!DOCTYPE html>';
+    html += "<h1>Perfil de Usuario</h1>";
+    html += "<ul>"
+    for (let u of usuario){
+        html += u;
+    }
+    html += "</u>";
+    response.send(html);
+});
+router.post('/new',(request, response, next) => {
+    console.log(request.body);
+    usuario.push(request.body.nombre);
+    response.redirect('/Perfil');
+});
+module.exports = router;
